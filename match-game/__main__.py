@@ -10,8 +10,13 @@ from random import randint
 from sys import exit
 import lib
 
-N = int(raw_input('Type how many packs of cards to use (N): '))
-mc = int(raw_input('Choose matching condition (mc): type "1" for value, "2" for suit, "3" for both: '))
+while True:
+	try:
+		N = int(raw_input('Type how many packs of cards to use (N): '))
+		mc = int(raw_input('Choose matching condition (mc): type "1" for value, "2" for suit, "3" for both: '))
+		break
+	except ValueError:
+		print('That was no valid number. Try again')
 
 # create a pile using N (from input) pacs of cards
 cards = lib.Cards(N)
