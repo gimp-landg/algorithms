@@ -39,6 +39,16 @@ class Cards:
 		return any(result)
 
 # a player
-class Player:
+class Player(object):
 	def __init__(self):
 		self.score = 0
+
+	@property
+	def score(self):
+		return self.__score
+
+	@score.setter
+	def score(self, score):
+		assert isinstance(score, int) or isinstance(score, float)
+		assert score >= 0
+		self.__score = score
