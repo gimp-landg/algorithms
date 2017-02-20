@@ -1,10 +1,18 @@
 from random import randint
 
 # one card of the pack
-class Card:
+class Card(object):
 	def __init__(self, suit, value):
-		self.suit = suit
-		self.value = value
+		assert suit in ['clubs', 'diamonds', 'hearts', 'spades']
+		assert value in ['A'] + range(2, 11)+['J', 'Q', 'K']
+		object.__setattr__(self, "suit", suit)
+		object.__setattr__(self, "value", value)
+
+	def __setattr__(self, *args):
+		raise TypeError
+
+	def __delattr__(self, *args):
+		raise TypeError
 
 # N packs of cards
 class Cards:
