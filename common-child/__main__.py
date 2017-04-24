@@ -12,22 +12,21 @@ def get_longest_common_child_length(a_string, b_string):
 	return _get_longest_common_child_length(a_preproc, b_preproc)
 
 def _init_longest_common_child_length_map(a_string, b_string):
-	global longest_common_child_length_map
-	a_range = range(len(a_string)+1)
-	b_range = range(len(b_string)+1)
-	longest_common_child_length_map = {(a_string[0:i], b_string[0:j]) : 0 for i in a_range for j in b_range}
+	global longest_common_child_length_table
+	a_len = len(a_string)+1
+	b_len = len(b_string)+1
+	longest_common_child_length_table = [[0]*b_len for i in range(a_len)]
 
 def _get_longest_common_child_length(a_string, b_string):
-	global longest_common_child_length_map
-	lcclm = longest_common_child_length_map
+	global longest_common_child_length_table
+	lcclt = longest_common_child_length_table
 	for i in range(1, len(a_string)+1):
 		for j in range(1, len(b_string)+1):
 			if a_string[i-1] != b_string[j-1]:
-				lcclm[(a_string[0:i], b_string[0:j])] = max(lcclm[(a_string[0:i-1], b_string[0:j])],
-					lcclm[(a_string[0:i], b_string[0:j-1])])
+				lcclt[i][j] = max(lcclt[i-1][j], lcclt[i][j-1])
 			else:
-				lcclm[(a_string[0:i], b_string[0:j])] = lcclm[(a_string[0:i-1], b_string[0:j-1])] + 1
-	return lcclm[(a_string, b_string)]
+				lcclt[i][j] = lcclt[i-1][j-1] + 1
+	return lcclt[len(a_string)][len(b_string)]
 
 
 if __name__ == '__main__':
