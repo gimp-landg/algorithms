@@ -1,5 +1,11 @@
 # submitted to hackerrank
 # https://www.hackerrank.com/challenges/coin-change
+def init(nl, Cl):
+	global ways_table, n, C
+	n = nl
+	C = Cl
+	ways_table = [{i:0 for i in C} for j in range(n+1)]
+	for wt in ways_table: wt.update({'calculated' : False})
 
 def get_ways(i):
 	if not ways_table[i]['calculated']:
@@ -10,14 +16,11 @@ def get_ways(i):
 			ways_table[i][i] = 1
 		ways_table[i]['calculated'] = True
 	return ways_table[i]
-	
-n, m = raw_input().strip().split(' ')
-n, m = [int(n), int(m)]
-C = map(int, raw_input().strip().split(' '))
-C.sort()
-ways_table = [{i:0 for i in C} for j in range(n+1)]
-for wt in ways_table: wt.update({'calculated' : False})
 
-# Print the number of ways of making change for 'n' units using coins having the values given by 'C'
-get_ways(n)
-print sum([ways_table[n][k] for k in C])
+if __name__ == '__main__':
+	n, m = raw_input().strip().split(' ')
+	n, m = [int(n), int(m)]
+	C = map(int, raw_input().strip().split(' '))
+
+	init(n, C)
+	print sum([get_ways(n)[k] for k in C])
