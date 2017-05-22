@@ -1,13 +1,16 @@
 # submitted to hackerrank
 # https://www.hackerrank.com/challenges/coin-change
-def init(n, c):
+def init(c):
 	global WAYS_TABLE, N, C
-	N = n
 	C = c
-	WAYS_TABLE = [{i:0 for i in C} for j in range(N+1)]
-	for wt in WAYS_TABLE: wt.update({'calculated' : False})
+	WAYS_TABLE = [{'calculated' : False}]
 
 def get_ways(i):
+	if len(WAYS_TABLE) - 1 < i:
+		ways_columns = [{k:0 for k in C} for l in range(i - len(WAYS_TABLE) + 1)]
+		for k in ways_columns: k.update({'calculated' : False})
+		WAYS_TABLE.extend(ways_columns)
+
 	if not WAYS_TABLE[i]['calculated']:
 		for j in C:
 			if j < i:
@@ -15,6 +18,7 @@ def get_ways(i):
 		if i in C:
 			WAYS_TABLE[i][i] = 1
 		WAYS_TABLE[i]['calculated'] = True
+
 	return WAYS_TABLE[i]
 
 if __name__ == '__main__':
@@ -22,5 +26,5 @@ if __name__ == '__main__':
 	N, M = [int(N), int(N)]
 	C = map(int, raw_input().strip().split(' '))
 
-	init(N, C)
+	init(C)
 	print sum([get_ways(N)[k] for k in C])
