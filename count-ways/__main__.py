@@ -1,3 +1,4 @@
+# submitted to hackerrank
 # https://www.hackerrank.com/challenges/count-ways-1
 
 N = int(raw_input())
