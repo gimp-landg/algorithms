@@ -1,13 +1,12 @@
 class OrderedTree:
 	def __init__(self, key, val):
-		# __tree = [key, left_node, right_node, linked_list_link]
 		# __linked_list = [key, left_node, right_node, value]
-		none_ll = [None, None, None, None]
-		init_list = [key, None, None, val]
-		init_list[1] = init_list[2] = none_ll
-		none_ll[1] = none_ll[2] = init_list
-		self.__linked_list = none_ll
-		self.__tree = [key, None, None, self.__linked_list[2]]
+		self.__linked_list = []
+		linked_list_init = [key, self.__linked_list, self.__linked_list, val]
+		self.__linked_list += [None, linked_list_init, linked_list_init, None]
+
+		# __tree = [key, left_node, right_node, linked_list_link]
+		self.__tree = [key, None, None, linked_list_init]
 
 	def add_key_value(self, key, value):
 		self.__add_key_to_bt(key)[3] = self.__add_key_value_to_ll(key, value)
