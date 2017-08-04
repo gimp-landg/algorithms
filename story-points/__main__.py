@@ -35,9 +35,8 @@ class OrderedTree:
 		node = self.__linked_list
 		while True:
 			if (node[0] == None or node[0] < key) and (node[2][0] > key or node[2][0] == None):
-				a = node[2]
-				node[2] = [key, node, a, value]
-				a[1] = node[2]
+				next_node = node[2]
+				node[2] = next_node[1] = [key, node, next_node, value]
 				return node[2]
 			elif node[0] == key:
 				raise
