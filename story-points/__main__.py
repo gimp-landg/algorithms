@@ -38,6 +38,9 @@ class OrderedTree:
 			node = node[2]
 
 	def get_values(self, *args):
+		return [[i[0], i[3]] for i in self.__get_raw_values(*args)]
+
+	def __get_raw_values(self, *args):
 		if len(args) == 1:
 			return self.__get_values_from_key(*args)
 		elif len(args) == 2:
@@ -84,4 +87,4 @@ for i in [(1, 'less than 1 day'), (16, '2 -5 weeks'), (0, '0 days'), (2, '1 - 2 
 # define a function that takes story points integer or range and prints information
 def how_long(*points):
 	for i in ot.get_values(*points):
-		print i[0], ' : ', i[3]
+		print '{} : {}'.format(*i)
