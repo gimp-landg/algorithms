@@ -11,25 +11,20 @@ class OrderedTree:
 	def add_key_value(self, key, value):
 		self.__add_key_to_bt(key)[3] = self.__add_key_value_to_ll(key, value)
 
-	def __add_key_to_bt(self, key, branch=None):
-		if branch == None:
-			branch = self.__tree
+	def __add_key_to_bt(self, key):
+		branch = self.__tree
+		while True:
+			if branch[0] == key:
+				raise
+			elif branch[0] > key:
+				ni = 1
+			elif branch[0] < key:
+				ni = 2
 
-		if branch[0] == key:
-			raise
-		elif branch[0] > key:
-			if branch[1] == None:
-				branch[1] = [key, None, None, None]
-				return branch[1]
-			else:
-				return self.__add_key_to_bt(key, branch=branch[1])
-		elif branch[0] < key:
-			if branch[2] == None:
-				branch[2] = [key, None, None, None]
-				return branch[2]
-			else:
-				return self.__add_key_to_bt(key, branch=branch[2])
-
+			if branch[ni] == None:
+				branch[ni] = [key, None, None, None]
+				return branch[ni]
+			branch = branch[ni]
 
 	def __add_key_value_to_ll(self, key, value):
 		node = self.__linked_list
