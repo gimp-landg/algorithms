@@ -8,7 +8,11 @@ class OrderedTree:
 		# __tree = [key, left_node, right_node, linked_list_link]
 		self.__tree = [key, None, None, linked_list_init]
 
-	def add_key_value(self, key, value):
+	def add(self, key, value):
+		"""
+		Add a key, value pair; key must not be a member of the tree.
+		If the key is a member, raise a KeyError.
+		"""
 		self.__add_key_to_bt(key)[3] = self.__add_key_value_to_ll(key, value)
 
 	def __add_key_to_bt(self, key):
@@ -82,7 +86,7 @@ class OrderedTree:
 # create the data structure with story point data
 ot = OrderedTree(4, '3 - 5 days')
 for i in [(1, 'less than 1 day'), (16, '2 -5 weeks'), (0, '0 days'), (2, '1 - 2 days'), (8, '1 - 2 weeks'), (32, 'more than 5 weeks')]:
-	ot.add_key_value(i[0], i[1])
+	ot.add(i[0], i[1])
 
 # define a function that takes story points integer or range and prints information
 def how_long(*points):
