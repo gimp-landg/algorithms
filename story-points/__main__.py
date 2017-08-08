@@ -19,7 +19,7 @@ class OrderedTree:
 		branch = self.__tree
 		while True:
 			if branch[0] == key:
-				raise
+				raise KeyError(key)
 			elif branch[0] > key:
 				ni = 1
 			elif branch[0] < key:
@@ -38,7 +38,7 @@ class OrderedTree:
 				node[2] = next_node[1] = [key, node, next_node, value]
 				return node[2]
 			elif node[0] == key:
-				raise
+				raise KeyError(key)
 			node = node[2]
 
 	def get_values(self, *args):
@@ -50,7 +50,7 @@ class OrderedTree:
 		elif len(args) == 2:
 			return self.__get_values_from_key_range(*args)
 		else:
-			raise
+			raise TypeError('__get_raw_values() takes at most 3 arguments ({} given)'.format(len(args)+1))
 
 	def __get_values_from_key(self, key):
 		left_range = None
