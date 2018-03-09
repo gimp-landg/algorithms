@@ -1,4 +1,13 @@
+import abc
+
 class Heap:
+	__metaclass__ = abc.ABCMeta
+	@abc.abstractmethod
+	def _is_lower_than(self, parent, child):
+		"""
+		for min integer heap will be
+		'return parent > child'
+		"""
 	def __init__(self, heap_data=None):
 		if heap_data is None:
 			self.items = []
@@ -58,19 +67,29 @@ class Heap:
 	def heapify_down(self):
 		index = 0
 		while self.__has_lchild(index):
-			smallest_child_index = self.__get_lchild_index(index)
-			if self.__has_rchild(index) and self.__get_rchild(index) < self.__get_lchild(index):
-				smallest_child_index = self.__get_rchild_index(index)
-			if self.items[smallest_child_index] < self.items[index]:
-				self.items[smallest_child_index], self.items[index] = self.items[index], self.items[smallest_child_index]
-				index = smallest_child_index
+			lowest_child_index = self.__get_lchild_index(index)
+			if self.__has_rchild(index) and \
+			   self._is_lower_than(self.__get_lchild(index), self.__get_rchild(index)):
+				lowest_child_index = self.__get_rchild_index(index)
+			if self._is_lower_than(self.items[index], self.items[lowest_child_index]):
+				self.items[lowest_child_index], self.items[index] = self.items[index], self.items[lowest_child_index]
+				index = lowest_child_index
 			else:
 				break
 
 
 	def heapify_up(self):
 		index = len(self.items) - 1
-		while self.__has_parent(index) and self.__get_parent(index) > self.items[index]:
-				parent_index = self.__get_parent_index(index)
-				self.items[index] , self.items[parent_index] = self.items[parent_index], self.items[index]
-				index = parent_index
+		while self.__has_parent(index) and \
+		      self._is_lower_than(self.__get_parent(index), self.items[index]):
+			parent_index = self.__get_parent_index(index)
+			self.items[index] , self.items[parent_index] = self.items[parent_index], self.items[index]
+			index = parent_index
+
+class MinHeap(Heap):
+    def _is_lower_than(self, parent, child):
+        return parent > child
+
+class MaxHeap(Heap):
+    def _is_lower_than(self, parent, child):
+        return parent < child
