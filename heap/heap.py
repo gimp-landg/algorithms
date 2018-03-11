@@ -3,10 +3,11 @@ import abc
 class Heap:
 	__metaclass__ = abc.ABCMeta
 	@abc.abstractmethod
-	def _is_lower_than(self, parent, child):
+	def _is_lower_than(self, item1, item2):
 		"""
-		for min integer heap will be
-		'return parent > child'
+		Return True if item1 should be
+		positioned lower than item2 on the heap.
+		Else return False
 		"""
 	def __init__(self, heap_data=None):
 		if heap_data is None:
@@ -87,9 +88,9 @@ class Heap:
 			index = parent_index
 
 class MinHeap(Heap):
-    def _is_lower_than(self, parent, child):
-        return parent > child
+    def _is_lower_than(self, item1, item2):
+        return item1 > item2
 
 class MaxHeap(Heap):
-    def _is_lower_than(self, parent, child):
-        return parent < child
+    def _is_lower_than(self, item1, item2):
+        return item1 < item2
