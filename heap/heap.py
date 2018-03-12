@@ -88,9 +88,9 @@ class Heap:
 			index = parent_index
 
 class MinHeap(Heap):
-    def _is_lower_than(self, item1, item2):
-        return item1 > item2
+	def _is_lower_than(self, item1, item2):
+		return item1 > item2
 
 class MaxHeap(Heap):
-    def _is_lower_than(self, item1, item2):
-        return item1 < item2
+	def _is_lower_than(self, item1, item2):
+		return item1 < item2
