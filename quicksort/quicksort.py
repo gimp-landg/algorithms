@@ -1,12 +1,17 @@
 from random import randint
 
 def sort(v_numbers):
-	global numbers
+	global numbers, rec_stack
 	numbers = v_numbers
-	_sort(0,len(numbers)-1)
+	rec_stack = [(0,len(numbers)-1)]
+	while len(rec_stack) > 0:
+		_sort()
 	return numbers
 
-def _sort(i, j):
+def _sort():
+	i = rec_stack[-1][0]
+	j = rec_stack[-1][1]
+	del rec_stack[-1]
 	if j - i < 1:
 		return
 	old_i = i
@@ -29,6 +34,7 @@ def _sort(i, j):
 			new_i -= 1
 		else:
 			new_j += 1
-	_sort(old_i, new_i)
-	_sort(new_j, old_j)
+
+	rec_stack.append((old_i, new_i))
+	rec_stack.append((new_j, old_j))
 
